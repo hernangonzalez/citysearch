@@ -27,7 +27,7 @@ struct City: Codable {
     }
 }
 
-extension City {
+private extension City {
     static func == (lhs: Self, rhs: String) -> Bool {
         lhs.key.starts(with: rhs)
     }
@@ -66,12 +66,18 @@ extension Array where Element == City {
         return match
     }
 
-    func range(matching key: String) -> ClosedRange<Index>? {
+    func range(matching key: String) -> Range<Index>? {
+        let key = key.lowercased()
+
         guard !isEmpty, !key.isEmpty, let pivot = index(of: key) else {
             return nil
         }
         let upperBound = findBound(at: pivot, key: key) { $0 + 1 }
         let lowerBound = findBound(at: pivot, key: key) { $0 - 1 }
-        return lowerBound ... upperBound
+        return lowerBound ..< (upperBound + 1)
+    }
+
+    var range: Range<Index> {
+        startIndex ..< endIndex
     }
 }

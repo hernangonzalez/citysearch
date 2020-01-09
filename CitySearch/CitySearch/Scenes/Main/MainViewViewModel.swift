@@ -17,9 +17,7 @@ class MainViewViewModel {
     private var items: [City] = .init()
     private var range: Range<Int> = 0..<0 {
         didSet {
-            DispatchQueue.main.async { [weak delegate] in
-                delegate?.viewNeedsUpdate()
-            }
+            delegate?.viewNeedsUpdate()
         }
     }
     weak var delegate: MainViewViewModelDelegate?
@@ -44,7 +42,7 @@ extension MainViewViewModel {
             /// Map models
             let decoder = JSONDecoder()
             items = try decoder.decode([City].self, from: data)
-            range = items.startIndex..<items.endIndex
+            range = items.range
             print("Loaded \(items.count) models.")
         } catch {
             print("Could not load city content")
@@ -52,9 +50,13 @@ extension MainViewViewModel {
     }
 
     func filter(by prefix: String) {
-        let items = self.items
+        let data = items
+        let dispatch = DispatchQueue.main
         queue.async {
-            self.range = Int.random(in: 1...items.count / 2) ..< items.count / 2 + Int.random(in: 0...items.count / 2)
+            let match = data.range(matching: prefix)
+            dispatch.async {
+                self.range = match ?? data.range
+            }
         }
     }
 }

@@ -18,6 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow()
         window?.rootViewController = UINavigationController(rootViewController: main)
         window?.makeKeyAndVisible()
+
+        model.prepareForUse()
         return true
     }
 }

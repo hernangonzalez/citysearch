@@ -57,6 +57,7 @@ class MainViewController: UIViewController {
         ])
 
         collectionView = collection
+        viewModel.delegate = self
     }
 
     override func viewDidLayoutSubviews() {
@@ -72,6 +73,14 @@ class MainViewController: UIViewController {
     }
 }
 
+// MARK: - MainViewViewModelDelegate
+extension MainViewController: MainViewViewModelDelegate {
+    func viewNeedsUpdate() {
+        assert(Thread.isMainThread)
+        collectionView.reloadData()
+    }
+}
+
 // MARK: - UICollectionViewDataSource
 extension MainViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -80,13 +89,8 @@ extension MainViewController: UICollectionViewDataSource {
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Self.cityCellID, for: indexPath) as! SearchCityCell
-
-        struct TestModel: SearchCityCellViewModel {
-            let title: String = "A title"
-            var subtitle: String = "A subtitle"
-        }
-        cell.update(with: TestModel())
-
+        let model = viewModel.searchResult(at: indexPath.item)
+        cell.update(with: model)
         return cell
     }
 }
@@ -106,6 +110,6 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
 // MARK: - UISearchBarDelegate
 extension MainViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        debugPrint(searchText)
+        viewModel.filter(by: searchText)
     }
 }

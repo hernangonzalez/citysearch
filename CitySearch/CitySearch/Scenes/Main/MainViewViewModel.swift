@@ -31,6 +31,12 @@ extension MainViewViewModel {
         let city = items[index]
         return SearchCityModel(from: city)
     }
+
+    func mapModel(at index: Int) -> MapViewViewModel {
+        let index = range.startIndex + index
+        let city = items[index]
+        return .init(from: city)
+    }
 }
 
 extension MainViewViewModel {

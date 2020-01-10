@@ -11,24 +11,49 @@ import XCTest
 
 class CitySearchTests: XCTestCase {
 
-    override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+    let models: [City] = {
+        let fileURL = Bundle.main.url(forResource: "cities_v2", withExtension: "json")!
+        let data = try! Data(contentsOf: fileURL)
+
+        /// Map models
+        let decoder = JSONDecoder()
+        return try! decoder.decode([City].self, from: data)
+    }()
+
+    func testLoaded() {
+        XCTAssertFalse(models.isEmpty)
     }
 
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+    func testEmptySetReturnsNil() {
+        let models: [City] = .init()
+        XCTAssertNil(models.range(matching: "ab"))
     }
 
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testEmptyQueryReturnsNil() {
+        XCTAssertNil(models.range(matching: ""))
     }
 
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    func testInvalidQueryReturnsNil() {
+        XCTAssertNil(models.range(matching: "...123412341234....."))
     }
 
+    func testQuery1() {
+        let query = "bue"
+        let range = models.range(matching: query)
+        XCTAssertNotNil(range)
+
+        let matches = models[range!]
+        let valids = matches.reduce(true, { $0 && $1.name.lowercased().starts(with: query) })
+        XCTAssertTrue(valids)
+    }
+
+    func testQuery2() {
+        let query = "m"
+        let range = models.range(matching: query)
+        XCTAssertNotNil(range)
+
+        let matches = models[range!]
+        let valids = matches.reduce(true, { $0 && $1.name.lowercased().starts(with: query) })
+        XCTAssertTrue(valids)
+    }
 }

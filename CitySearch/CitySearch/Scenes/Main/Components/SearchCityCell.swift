@@ -24,14 +24,12 @@ class SearchCityCell: UICollectionViewCell {
 
         let title = UILabel()
         title.font = .preferredFont(forTextStyle: .body)
-        title.text = "Titulo"
         title.setContentHuggingPriority(.required, for: .vertical)
         title.setContentCompressionResistancePriority(.required, for: .vertical)
         title.textColor = .darkText
 
         let subtitle = UILabel()
         subtitle.font = .preferredFont(forTextStyle: .footnote)
-        subtitle.text = "Subtitulo"
         subtitle.textColor = .gray
 
         let line = UIView()

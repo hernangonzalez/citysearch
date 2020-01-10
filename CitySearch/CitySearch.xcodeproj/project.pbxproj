@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		5F17C2BA23C8C145005F331A /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F17C2B923C8C145005F331A /* MapViewController.swift */; };
 		5F17C2BC23C8C3E0005F331A /* MapViewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F17C2BB23C8C3E0005F331A /* MapViewViewModel.swift */; };
+		5F17C2BE23C8D330005F331A /* SearchResultsHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F17C2BD23C8D330005F331A /* SearchResultsHeaderView.swift */; };
 		5F8CB30C23C7A1D50075FACC /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8CB30B23C7A1D50075FACC /* AppDelegate.swift */; };
 		5F8CB31023C7A1D50075FACC /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F8CB30F23C7A1D50075FACC /* MainViewController.swift */; };
 		5F8CB31523C7A1D60075FACC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5F8CB31423C7A1D60075FACC /* Assets.xcassets */; };
@@ -33,6 +34,7 @@
 /* Begin PBXFileReference section */
 		5F17C2B923C8C145005F331A /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		5F17C2BB23C8C3E0005F331A /* MapViewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewViewModel.swift; sourceTree = "<group>"; };
+		5F17C2BD23C8D330005F331A /* SearchResultsHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultsHeaderView.swift; sourceTree = "<group>"; };
 		5F8CB30823C7A1D50075FACC /* CitySearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CitySearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5F8CB30B23C7A1D50075FACC /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5F8CB30F23C7A1D50075FACC /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -155,6 +157,7 @@
 			isa = PBXGroup;
 			children = (
 				5FF9978323C7AD56006CF505 /* SearchCityCell.swift */,
+				5F17C2BD23C8D330005F331A /* SearchResultsHeaderView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -264,6 +267,7 @@
 				5F17C2BA23C8C145005F331A /* MapViewController.swift in Sources */,
 				5F17C2BC23C8C3E0005F331A /* MapViewViewModel.swift in Sources */,
 				5F8CB30C23C7A1D50075FACC /* AppDelegate.swift in Sources */,
+				5F17C2BE23C8D330005F331A /* SearchResultsHeaderView.swift in Sources */,
 				5FF9978423C7AD56006CF505 /* SearchCityCell.swift in Sources */,
 				5FF9978623C7BC5F006CF505 /* MainViewViewModel.swift in Sources */,
 				5F987B5F23C7C80D00EE19C8 /* CityModels.swift in Sources */,

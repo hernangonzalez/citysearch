@@ -11,7 +11,9 @@ import UIKit
 class MainViewController: UIViewController {
     // MARKK: Constants
     private static let cityCellID = "cityCell"
+    private static let headerID = "headerView"
     private static let rowHeight: CGFloat = 64
+    private static let headerHeight: CGFloat = 40
 
     // MARK: Model
     private let viewModel: MainViewViewModel
@@ -44,6 +46,7 @@ class MainViewController: UIViewController {
         collection.translatesAutoresizingMaskIntoConstraints = false
         collection.backgroundColor = .white
         collection.register(SearchCityCell.self, forCellWithReuseIdentifier: Self.cityCellID)
+        collection.register(SearchResultsHeaderView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: Self.headerID)
         collection.dataSource = self
         collection.delegate = self
 
@@ -58,11 +61,6 @@ class MainViewController: UIViewController {
 
         collectionView = collection
         viewModel.delegate = self
-    }
-
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        collectionView.contentInset.bottom = view.safeAreaInsets.bottom
     }
 
     // MARK: Navigation
@@ -93,6 +91,12 @@ extension MainViewController: UICollectionViewDataSource {
         cell.update(with: model)
         return cell
     }
+
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        let view = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: Self.headerID, for: indexPath) as! SearchResultsHeaderView
+        view.update(with: viewModel.numberOfItems)
+        return view
+    }
 }
 
 // MARK: - UICollectionViewDelegateFlowLayout
@@ -106,6 +110,10 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         .init(width: collectionView.bounds.width, height: Self.rowHeight)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        .init(width: collectionView.bounds.width, height: Self.headerHeight)
     }
 
     func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
